@@ -4,7 +4,22 @@
 #include "genInput.h"
 
 
-bool GenProgramInput::genInput(const string& inputFormatFile, string& programInput)
+int GenProgramInput::genInput(int n, string& inputFile)
+{
+    ofstream out;
+    out.open(inputFile, ios::out);
+    if(!out)
+    {
+        cout << "Failed to open file \"" << inputFile << "\"\n";
+        return 0;
+    }
+    for(int i = 0; i < n; ++i)
+    {
+
+    }
+}
+
+bool GenProgramInput::genSingleInput(const string& inputFormatFile, string& programInput)
 {
     programInput.clear();
     ifstream in;
@@ -43,7 +58,7 @@ bool GenProgramInput::genInput(const string& inputFormatFile, string& programInp
             else 
                 return false;
        }
-       programInput.append(1, '\n');
+       programInput.append(1, ' ');
         in >> format;        
     }
 

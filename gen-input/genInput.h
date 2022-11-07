@@ -13,10 +13,15 @@ private:
     void genChar(string& target);
     // Generate a random string whose length is between length 'minLen' and length 'maxLen', append it to string "target"
     void genString(int minLen, int maxLen, string& target);
+      /* Generate a single input for the program based on the input format file and return it as a string,
+   store the result in 'programInput'. Each input element is separated by a whitespace*/
+    bool genSingleInput(const string& inputFormatFile, string& programInput);    
 public:
-    /* Generate a single input for the program based on the input format file and return it as a string,
-   store the result in 'programInput'. Each input element is separated by a breakline*/
-    bool genInput(const string& inputFormatFile, string& programInput);    
+    /*
+    Generate n inputs and write all inputs to file "inputFile", return the number of inputs  generated successfully.
+    Each single input was separated by a breakline.
+    */
+    int genInput(const string& inputFormatFile, int n, string& inputFile);
 };
 
 
