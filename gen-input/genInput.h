@@ -1,17 +1,6 @@
 #ifndef INPUT_H
 #define INPUT_H
 #include <string>
-<<<<<<< HEAD
-using std::string;
-
-
-class GenInput
-{
-public:
-    /* Generate a single input for the program based on the input format file and return it as a string, 
-    each input element is separated by a breakline*/
-    string genInput(const string& inputFormatFile);    
-=======
 using namespace std;
 
 
@@ -28,7 +17,6 @@ public:
     /* Generate a single input for the program based on the input format file and return it as a string,
    store the result in 'programInput'. Each input element is separated by a breakline*/
     bool genInput(const string& inputFormatFile, string& programInput);    
->>>>>>> gen-input
 };
 
 

@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-#include "genInput.h"
-
-string GenInput::genInput(const string& inputFormatFile)
-{
-    
-=======
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -82,5 +75,4 @@ void GenProgramInput::genString(int minLen, int maxLen, string& target)
     int len = rand() % (maxLen - minLen + 1) + minLen;
     for(int i = 0; i < len; ++i)
         genChar(target);
->>>>>>> gen-input
 }

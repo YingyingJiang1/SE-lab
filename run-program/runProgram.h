@@ -4,7 +4,7 @@
 
 class RunProgram
 {
-    
+    GenProgramInput input;
 public:
 
 };
