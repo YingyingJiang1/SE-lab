@@ -12,10 +12,10 @@ JudgeTool::~JudgeTool()
    while(cur)
     {
         if(cur->cppFiles)
-            delete cur->cppFiles;
+            delete [] cur->cppFiles;
         cur = cur->next;
     }
-    delete fileDirs;
+    delete [] fileDirs;
 }
 
 /* */
@@ -26,12 +26,8 @@ JudgeTool::JudgeTool(const JudgeTool& judgeTool)
 }
 
 
-void JudgeTool::readInput()
-{
-    string input;
-    cout << "请输入文件夹路径：";
-    cin >> input;
-
+void JudgeTool::readInput(string& input)
+{   
     // get path of all subdiretories of inputed directory
     char buf[BUF_SIZE];
     FILE*fp;
@@ -72,6 +68,13 @@ void JudgeTool::fillInFD(FileDir* ptr, const string& dirPath)
     FILE* fp = popen(command.c_str(), "r");
     while(fgets(buf, BUF_SIZE, fp))
         ss << buf;
+    if(ss.str().find("ls:") <= ss.str().length())
+    {
+        cout << "Failed to visit subdirectories of \"" << dirPath << "\"\n";
+        ptr->cppFiles = NULL;
+        ptr->num = 0;
+        return;
+    }
     ptr->cppFiles = new string[size];
 
     L:
@@ -107,22 +110,34 @@ void JudgeTool::getRes(string equalRes, string inequalRes)
     {
         abort();
     }
-
-    FileDir* cur = fileDirs;
-    while(cur)
+   for(FileDir* cur = fileDirs; cur; cur = cur->next)
     {
+        if(cur->num == 0)
+            continue;
         int fileNums = cur->num;
+        // generate input
+        string inputFile;
+        GenProgramInput input(cur->inputFormatFile);
+        input.genInput(1, inputFile);
+
+        // run programs and get execution result of all program
+        RunProgram run(inputFile);
+        map<int, string>* outputs = new map<int, string>[fileNums];
+        for(int i = 0; i < fileNums; ++i)
+            run.runProgram( cur->cppFiles[i], outputs[i]);
+
+        // determine the equivalence of program pairs
         for(int j =0; j < fileNums; ++j)
         {
             for(int k = j +1 ; k < fileNums; ++k)
             {
-                if(judge.judgeEquivalence(cur->cppFiles[j], cur->cppFiles[k], cur->inputFormatFile))
+                if(judge.equivalence(outputs[j], outputs[k]))
                     outEqual << cur->cppFiles[j] << "," <<cur->cppFiles[k] << "\n";
                 else
                     outInequal << cur->cppFiles[j] << "," << cur->cppFiles[k] << "\n";
             }
         }
-        cur = cur->next;
+        delete [] outputs;
     }
 
     outEqual.close();

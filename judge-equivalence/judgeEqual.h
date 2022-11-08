@@ -12,12 +12,9 @@ Output each pair of equivalent files to 'equal.csv', output each pair of inequiv
 
 class JudgeEqual
 {
-private:
-    // compare m1 and m2, if m1 and m2 are the same then return 0
-    int compare(map<int, string>& m1, map<int, string>& m2);
 public:
-
-    int judgeEquivalence(string& file1, string& file2, string& inputFormatFile);
+    // compare m1 and m2, if m1 and m2 are the same then return 1
+    int equivalence(map<int, string>& m1, map<int, string>& m2);
 
 };
 

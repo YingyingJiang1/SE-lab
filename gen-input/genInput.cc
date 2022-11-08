@@ -6,6 +6,7 @@
 
 int GenProgramInput::genInput( int n, string& inputFile)
 {
+    inputFile = "input.txt";
     ofstream out;
     out.open(inputFile, ios::out);
     if(!out)
@@ -69,7 +70,7 @@ bool GenProgramInput::genSingleInput (string& programInput)
             else 
                 return false;
        }
-       programInput.append(1, ' ');
+        programInput.append(1, ' ');
         in >> format;        
     }
 
