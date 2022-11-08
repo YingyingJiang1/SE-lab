@@ -8,7 +8,7 @@ using std::cin;
 using std::cout;
 #define MAX_INT 0x7fffffff
 
-bool  runProgram(string& cppFile, string& inputFile, map<int, string>& outputs, int n)
+bool  RunProgram::runProgram(string& cppFile, string& inputFile, map<int, string>& outputs, int n)
 {
     // Redirect standard input to a file
     ifstream fin(inputFile);

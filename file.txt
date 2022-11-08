@@ -1,0 +1,11 @@
+equal.csv
+file.txt
+gen-input
+inequal.csv
+judge-equivalence
+judgeTool
+judgeTool.cc
+judgeTool.h
+main.cc
+makefile
+run-program

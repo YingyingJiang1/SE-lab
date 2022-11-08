@@ -21,7 +21,7 @@ private:
    void fillInFD(FileDir* ptr, const string& dirPath);
 public:
     JudgeTool(){fileDirs = NULL;};
-    ~JudgeTool(){}
+    ~JudgeTool();
     JudgeTool(const JudgeTool& judgeTool);
     // read and parsing user input to assign values to data members of JudgeTool
     void readInput();
