@@ -7,8 +7,9 @@ using std::string;
 typedef struct FileDir
 {
     string * cppFiles;
-    string inputFormatFile;
+    string inputFormatFile;    
     int num;    // the number of cpp files
+    struct FileDir* next;
 }FileDir;
 
 class JudgeTool
@@ -16,9 +17,10 @@ class JudgeTool
 private:
     JudgeEqual judge;
     FileDir* fileDirs;
-    int num;
+   // int num;
+   void fillInFD(FileDir* ptr, const string& dirPath);
 public:
-    JudgeTool(){};
+    JudgeTool(){fileDirs = NULL;};
     ~JudgeTool(){}
     JudgeTool(const JudgeTool& judgeTool);
     // read and parsing user input to assign values to data members of JudgeTool

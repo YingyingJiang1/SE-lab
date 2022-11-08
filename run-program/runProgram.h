@@ -6,10 +6,11 @@
 class RunProgram
 {
 public:
-    /* run a cpp program n times and the results of each run are saved to the map in the form of numbers and output results, 
+    /* run a cpp program n times and the results of each run are saved to the map in the form of pair(int, string), 
     return true for a success run.
-    e.g: ouputs[i] is output of the ith execution  */
-   bool  runProgram(string& cppFile, string& inputFile, map<int, string>& outputs);
+    for a successful run, int is positive; for a failed run, int is negative  
+    e.g: pair(1, str) dedicates output of 1th execution is str, pair(-2, NULL) dedicates 2th execution is failed */
+   bool  runProgram(string& cppFile, string& inputFile, map<int, string>& outputs, int n);
 };
 
 #endif

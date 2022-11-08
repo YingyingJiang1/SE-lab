@@ -7,9 +7,10 @@ int JudgeEqual::judgeEquivalence(string& file1, string& file2, string& inputForm
 
     string inputFile = "input.txt";
     map<int, string> outfile1, outfile2;
-    input.genInput(100, inputFile);
-    run.runProgram(file1, inputFile, outfile1);
-    run.runProgram(file2, inputFile, outfile2);
+    int times = 100;
+    input.genInput(times, inputFile);
+    run.runProgram(file1, inputFile, outfile1, times);
+    run.runProgram(file2, inputFile, outfile2, times);
 
     if(compare(outfile1, outfile2) == 0)
         return 1;
