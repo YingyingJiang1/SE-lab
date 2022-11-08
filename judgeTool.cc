@@ -19,39 +19,48 @@ JudgeTool::~JudgeTool()
     }
 }
 
-/* */
 JudgeTool::JudgeTool(const JudgeTool& judgeTool)
 {
     cout << "copy constructor of JudgeTool was called!\n";
     abort();
 }
 
+/*
+paras: ss->target stringstream, dir: path of directory
+return: if error occurred then return false, else return true.
+*/
+bool JudgeTool::getDirContent(stringstream& ss, string& dir)
+{
+    // get path of all subdiretories of inputed directory
+    char buf[BUF_SIZE];
+    FILE*fp;
+    string path;
+    if(dir[dir.length()-1] != '/')
+        dir.append(1, '/');
+    string command = "ls " + dir + "* -d";
+    fp = popen(command.c_str(), "r");
+   while( fgets(buf, BUF_SIZE, fp) != 0)
+        ss << buf;
+    pclose(fp);
+
+    // check whether succeed
+    if(ss.str().find("ls:") <= ss.str().length())
+    {
+        cout << "Failed to visit subdirectories of \"" << dir << "\"\n";
+        return false;
+    }
+    return true;
+}
+
 
 void JudgeTool::readInput(string& input)
 {   
     stringstream ss;
-    //getDirContent(ss, input);
-    // get path of all subdiretories of inputed directory
-    char buf[BUF_SIZE];
-    FILE*fp;
-    stringstream ss;
-    string path;
-    if(input[input.length()-1] != '/')
-        input.append(1, '/');
-    string command = "ls " + input + "* -d";
-    fp = popen(command.c_str(), "r");
-   while( fgets(buf, BUF_SIZE, fp) != 0)
-        ss << buf;
-   
-    if(ss.str().find("ls:") <= ss.str().length())
-    {
-        cout << "Failed to visit subdirectories of \"" << input << "\"\n";
+    if(!getDirContent(ss, input))
         return;
-    }
-    pclose(fp);
-
-    // get path of all files in each subdirectory
-    stringstream  ss1;
+   
+    string path;
+    // get path of all files in each subdirectory and fill in struct FileDir
     while(ss >> path)
     {
         FileDir* ptr = new FileDir;
@@ -61,23 +70,21 @@ void JudgeTool::readInput(string& input)
     }
 }
 
-void JudgeTool::fillInFD(FileDir* ptr, const string& dirPath)
+/**
+ * paras: ptr->point of target struct FileDir, dirPath->path of directory
+ */
+void JudgeTool::fillInFD(FileDir* ptr, string& dirPath)
 {
-    char buf[BUF_SIZE];
-    int count = 0, size = 50;
-    string command = "ls " + dirPath + "/* -d";
-    string filePath;
     stringstream ss;
-    FILE* fp = popen(command.c_str(), "r");
-    while(fgets(buf, BUF_SIZE, fp))
-        ss << buf;
-    if(ss.str().find("ls:") <= ss.str().length())
+    if(!getDirContent(ss, dirPath))
     {
         cout << "Failed to visit subdirectories of \"" << dirPath << "\"\n";
         ptr->cppFiles = NULL;
         ptr->num = 0;
         return;
     }
+   
+    int count = 0, size = 50;
     ptr->cppFiles = new string[size];
 
     L:
