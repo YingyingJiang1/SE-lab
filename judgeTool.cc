@@ -8,14 +8,15 @@ using std::cout;
 
 JudgeTool::~JudgeTool()
 {
-    FileDir* cur = fileDirs;
+    FileDir* cur = fileDirs, *pre = cur;
    while(cur)
     {
         if(cur->cppFiles)
             delete [] cur->cppFiles;
+        pre = cur;
         cur = cur->next;
+        delete pre;
     }
-    delete [] fileDirs;
 }
 
 /* */
@@ -28,6 +29,8 @@ JudgeTool::JudgeTool(const JudgeTool& judgeTool)
 
 void JudgeTool::readInput(string& input)
 {   
+    stringstream ss;
+    //getDirContent(ss, input);
     // get path of all subdiretories of inputed directory
     char buf[BUF_SIZE];
     FILE*fp;
@@ -110,6 +113,10 @@ void JudgeTool::getRes(string equalRes, string inequalRes)
     {
         abort();
     }
+
+    // determine times of execution for a single program
+    int times = 1;
+
    for(FileDir* cur = fileDirs; cur; cur = cur->next)
     {
         if(cur->num == 0)
@@ -118,10 +125,10 @@ void JudgeTool::getRes(string equalRes, string inequalRes)
         // generate input
         string inputFile;
         GenProgramInput input(cur->inputFormatFile);
-        input.genInput(1, inputFile);
+        input.genInput(times, inputFile);
 
         // run programs and get execution result of all program
-        RunProgram run(inputFile);
+        RunProgram run(inputFile, times);
         map<int, string>* outputs = new map<int, string>[fileNums];
         for(int i = 0; i < fileNums; ++i)
             run.runProgram( cur->cppFiles[i], outputs[i]);

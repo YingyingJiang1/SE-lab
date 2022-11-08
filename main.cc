@@ -1,6 +1,6 @@
 #include "judgeTool.h"
 #include <iostream>
-
+extern int no;
 int main(int argc, char* argv[])
 {
     string input;

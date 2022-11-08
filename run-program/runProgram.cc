@@ -7,7 +7,6 @@
 using std::cin;
 using std::cout;
 #define BUF_SIZE 0xffff
-
 bool  RunProgram::runProgram(string& cppFile, map<int, string>& outputs)
 {
     // Redirect standard input to a file
@@ -33,7 +32,7 @@ bool  RunProgram::runProgram(string& cppFile, map<int, string>& outputs)
     command = " timeout 2s ./a.out";
     for(int i = 1; i <= n; ++i)
     {
-       fp = popen(command.c_str(), "r");
+        fp = popen(command.c_str(), "r");
         if(!fp)
             outputs[-i] = "";
         else
@@ -42,6 +41,8 @@ bool  RunProgram::runProgram(string& cppFile, map<int, string>& outputs)
             outputs[i] = buf;
         }
         pclose(fp);
+        fin.clear();
+        fin.seekg(0, ios::beg);
     }
 
     cin.rdbuf(oldcin);
