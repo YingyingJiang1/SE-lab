@@ -33,7 +33,6 @@ int GenProgramInput::genInput( int n, string& inputFile)
 
 bool GenProgramInput::genSingleInput (string& programInput)
 {
-    programInput.clear();
     ifstream in;
     in.open(inputFormatFile, ios::in);
     if(!in)

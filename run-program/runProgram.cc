@@ -61,8 +61,6 @@ inline void RunProgram::execution(int n, map<int, string>& outputs, ifstream& fi
             outputs[i] = buf;
         }
         pclose(fp);
-        fin.clear();
-        fin.seekg(0, ios::beg);
     }
 }
 
