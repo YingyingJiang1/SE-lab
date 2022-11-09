@@ -9,27 +9,19 @@ using std::cout;
 #define BUF_SIZE 0xffff
 bool  RunProgram::runProgram(string& cppFile, map<int, string>& outputs)
 {
-    // Redirect standard input to a file
-    ifstream fin(inputFile);
-    if(!fin)
-    {
-        cout << "Failed to open \"" << inputFile << "\"\n";
-        return false;
-    }
-    streambuf* oldcin = cin.rdbuf(fin.rdbuf());
-
+   
     if(!compile(cppFile))
         return false;
 
-    execution(n, outputs, fin);
-
-    cin.rdbuf(oldcin);
-    fin.close();
+    if(!execution(n, outputs))
+        return false;
+    return true;
+    
 }
 
 
 // compile cppFile, if failed then return false
-inline bool RunProgram::compile(string& cppFile)
+ bool RunProgram::compile(string& cppFile)
 {
     // compile cppFile
     string command = "g++ -w " + cppFile;    
@@ -44,23 +36,21 @@ inline bool RunProgram::compile(string& cppFile)
 }
 
 // run cppFile n times and store the result of every execution in outputs
-inline void RunProgram::execution(int n, map<int, string>& outputs, ifstream& fin)
+bool RunProgram::execution(int n, map<int, string>& outputs)
 {
+
     string command;
     FILE* fp;
     char buf[BUF_SIZE];
-    command = " timeout 2s ./a.out";
-    for(int i = 1; i <= n; ++i)
-    {
-        fp = popen(command.c_str(), "r");
-        if(!fp)
-            outputs[-i] = "";
-        else
-        {
-            fgets(buf, BUF_SIZE, fp);
-            outputs[i] = buf;
-        }
+    command = "for i in {1..2};do ./a.out; done </home/oslab/judge-tool/input.txt";
+    fp = popen(command.c_str(), "r");
+     fgets(buf, BUF_SIZE, fp);
+     outputs[0] = buf;
+    cout << buf << endl;
         pclose(fp);
-    }
+    
+
+  
+    return true;
 }
 

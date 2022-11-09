@@ -122,7 +122,7 @@ void JudgeTool::getRes(string equalRes, string inequalRes)
     }
 
     // determine times of execution for a single program
-    int times = 10;
+    int times = 2;
     string column = "file1, file2\n";
     outEqual << column;
     outInequal << column;
