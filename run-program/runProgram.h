@@ -10,6 +10,7 @@ private:
     string inputs;   // input of program
     bool compile(string& cppFile);
     bool execution(int n, map<int, string>& outputs);
+    void write2inputFile(int& l, int& r);
 public:
     RunProgram(const string& _inputs, int _n = 1){n = _n, inputs = _inputs;}
     

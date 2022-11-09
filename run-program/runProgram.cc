@@ -35,6 +35,16 @@ bool  RunProgram::runProgram(string& cppFile, map<int, string>& outputs)
     return true;
 }
 
+inline void RunProgram::write2inputFile(int &l, int &r)
+{
+    r = inputs.find('\n', l);
+    ofstream outf;
+    outf.open("input.txt", ios::out);
+    outf << inputs.substr(l, r);
+    l = r+1;
+    outf.close();
+}
+
 // run cppFile n times and store the result of every execution in outputs
 bool RunProgram::execution(int n, map<int, string>& outputs)
 {
@@ -46,19 +56,13 @@ bool RunProgram::execution(int n, map<int, string>& outputs)
    int l = 0, r;
     for(int i = 1; i <= n; ++i)
     {
-        r = inputs.find('\n', l);
-        input = inputs.substr(l, r);
-        l = r+1;
-        ofstream outf;
-        outf.open("input.txt", ios::out);
-        outf << input;
-        outf.close();
+        write2inputFile(l, r);
         fp = popen(command.c_str(), "r");
         if(!fp)
             outputs[-i] = "";
         else
         {
-             fgets(buf, BUF_SIZE, fp);
+            fgets(buf, BUF_SIZE, fp);
             outputs[i] = buf;
         }
         pclose(fp);
