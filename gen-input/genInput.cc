@@ -4,30 +4,17 @@
 #include "genInput.h"
 
 
-int GenProgramInput::genInput( int n, string& inputFile)
+int GenProgramInput::genInput( int n, string& inputs)
 {
-    inputFile = "input.txt";
-    ofstream out;
-    out.open(inputFile, ios::out);
-    if(!out)
-    {
-        cout << "Failed to open file \"" << inputFile << "\"\n";
-        return 0;
-    }
-    
-    string inputs;
     int num = 0;
     for(int i = 0; i < n; ++i)
     {
         if(genSingleInput(inputs))
         {
             ++num;
-            inputs.append(1, '\n');
+            inputs.append("\n");
         }
     }
-
-    out << inputs;
-    out.close();
     return n;
 }
 

@@ -7,11 +7,11 @@ class RunProgram
 {
 private:
     int n;  // the number of times the program was executed
-    string inputFile;   // input of program
+    string inputs;   // input of program
     bool compile(string& cppFile);
     bool execution(int n, map<int, string>& outputs);
 public:
-    RunProgram(const string& _inputFile, int _n = 1){n = _n, inputFile = _inputFile;}
+    RunProgram(const string& _inputs, int _n = 1){n = _n, inputs = _inputs;}
     
     /* run a cpp program n times and the results of each run are saved to the map in the form of pair(int, string), 
     return true for a success run.

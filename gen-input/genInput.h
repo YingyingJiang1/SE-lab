@@ -24,10 +24,10 @@ private:
 public:
     GenProgramInput(string& _inputFormatFile){inputFormatFile = _inputFormatFile;}
     /*
-    Generate n inputs and write all inputs to file "inputFile", return the number of inputs  generated successfully.
+    Generate n inputs and write all inputs to file "inputs", return the number of inputs  generated successfully.
     Each single input was separated by a breakline.
     */
-    int genInput(int n, string& inputFile);
+    int genInput(int n, string& inputs);
 };
 
 

@@ -122,7 +122,7 @@ void JudgeTool::getRes(string equalRes, string inequalRes)
     }
 
     // determine times of execution for a single program
-    int times = 2;
+    int times = 500;
     string column = "file1, file2\n";
     outEqual << column;
     outInequal << column;
@@ -132,12 +132,12 @@ void JudgeTool::getRes(string equalRes, string inequalRes)
             continue;
         int fileNums = cur->num;
         // generate input
-        string inputFile;
+        string inputs;
         GenProgramInput input(cur->inputFormatFile);
-        input.genInput(times, inputFile);
+        input.genInput(times, inputs);
 
         // run programs and get execution result of all programs
-        RunProgram run(inputFile, times);
+        RunProgram run(inputs, times);
         map<int, string>* outputs = new map<int, string>[fileNums];
         for(int i = 0; i < fileNums; ++i)
             run.runProgram( cur->cppFiles[i], outputs[i]);
