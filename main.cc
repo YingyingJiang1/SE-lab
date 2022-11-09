@@ -7,7 +7,10 @@ int main(int argc, char* argv[])
     if(argc == 2)
         input = argv[argc-1];
     else
-        std::cout << "main need a argument" << std::endl;
+    {
+        std::cout << "main need an argument: path of a directory." << std::endl;
+        return 0;
+    }
     JudgeTool judgeTool;
     judgeTool.readInput(input);
     judgeTool.getRes();

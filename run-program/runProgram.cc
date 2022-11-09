@@ -18,6 +18,19 @@ bool  RunProgram::runProgram(string& cppFile, map<int, string>& outputs)
     }
     streambuf* oldcin = cin.rdbuf(fin.rdbuf());
 
+    if(!compile(cppFile))
+        return false;
+
+    execution(n, outputs, fin);
+
+    cin.rdbuf(oldcin);
+    fin.close();
+}
+
+
+// compile cppFile, if failed then return false
+inline bool RunProgram::compile(string& cppFile)
+{
     // compile cppFile
     string command = "g++ -w " + cppFile;    
     FILE* fp = popen(command.c_str(), "r");
@@ -27,7 +40,14 @@ bool  RunProgram::runProgram(string& cppFile, map<int, string>& outputs)
         return false;
     }
     pclose(fp);
-    // run cppFile and store the result of every execution
+    return true;
+}
+
+// run cppFile n times and store the result of every execution in outputs
+inline void RunProgram::execution(int n, map<int, string>& outputs, ifstream& fin)
+{
+    string command;
+    FILE* fp;
     char buf[BUF_SIZE];
     command = " timeout 2s ./a.out";
     for(int i = 1; i <= n; ++i)
@@ -44,7 +64,5 @@ bool  RunProgram::runProgram(string& cppFile, map<int, string>& outputs)
         fin.clear();
         fin.seekg(0, ios::beg);
     }
-
-    cin.rdbuf(oldcin);
-    fin.close();
 }
+

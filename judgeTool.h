@@ -32,7 +32,7 @@ public:
     void readInput(string& input);
     
     //Write filenames of all equivalent program pairs  to file 'equalRes' and all inequivalent program pairs  to file 'inequalRes'
-    void getRes(string equalRes = "equal.csv", string inequalRes = "inequal.csv");
+    void getRes(string equalRes = "output/equal.csv", string inequalRes = "output/inequal.csv");
 };
 
 
