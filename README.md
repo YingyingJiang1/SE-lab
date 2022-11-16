@@ -4,6 +4,10 @@ Implement a program equivalence judgment tool and confirmation tool.
 input of judgement tool: input a folder containing multiple subfolders, each subfolder contains one or more OJ source programs written in C/C++ and a file describing the OJ input format.
 input
   |———dir
+  
+  
+  
+  
       |———oj1.cpp
       |———oj2.cpp
       |———...
