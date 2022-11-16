@@ -11,15 +11,14 @@ input
       |———...
       |———stdin_format.txt
   |———...
-
-
-
   
- 
+  
 output of judgement tool: a folder containing equal.csv and inequal.csv. equal.csv saves relative path pairs of equivalent OJ programs, and inequal.csv saves relative path pairs of unequal OJ programs.
 
+```
 output
   |———equal.csv
   |———inequal.csv
+
  
 
