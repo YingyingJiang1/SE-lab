@@ -118,7 +118,9 @@ void JudgeTool::getRes(string equalRes, string inequalRes)
     outInequal.open(inequalRes, ios::out);
     if(!outEqual || !outInequal)
     {
-        abort();
+        cout << "Fail to open file \"" << equalRes << "\" or \"" << inequalRes << "\" for writing.\n";
+        cout << "Please make sure that the output folder is included in the program working directory.\n";
+        exit(0);
     }
 
     // determine times of execution for a single program
